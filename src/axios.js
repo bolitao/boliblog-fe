@@ -17,15 +17,15 @@ axios.interceptors.response.use(function (response) {
         return response;
     } else {
         // http status 为 200，但业务码不为 1 时，提示错误
-        Element.Message.error(respData.message, {duration: 3 * 1000})
+        Element.Message.error(respData.message == null ? 'ERROR' : respData.message, {duration: 3 * 1000})
     }
 }, function (error) {
 
-    // 判断是否是登陆相关错误
-    if (401 === error.response.status) {
-        // 登陆出错则移除登录信息
-        store.commit('REMOVE_INFO')
-    }
+    // // 判断是否是登陆相关错误
+    // if (401 === error.response.status) {
+    //     // 登陆出错则移除登录信息
+    //     store.commit('REMOVE_INFO')
+    // }
 
     // 返回后端提示
     Element.Message.error(error.response.data.message, {duration: 3 * 1000});
