@@ -16,7 +16,7 @@
           </el-form-item>
 
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
             <el-button @click="resetForm('ruleForm')">重置</el-button>
           </el-form-item>
         </el-form>
@@ -51,7 +51,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           const _this = this;
-          this.$axios.post('http://localhost:8899/auth/login', this.ruleForm).then(resp => {
+          this.$axios.post('/auth/login', this.ruleForm).then(resp => {
             const jwt = resp.headers['authorization'];
             const userInfo = resp.data.data;
 
