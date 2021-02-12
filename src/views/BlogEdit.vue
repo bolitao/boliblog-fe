@@ -83,7 +83,7 @@ export default {
     const blogId = this.$route.params.blogId;
     if (blogId) {
       const _this = this;
-      this.$axios.get('/blogs/' + blogId).then(res =>
+      this.$axios.get('/blogs/' + blogId).then(res => {
         const blog = res.data.data;
         _this.ruleForm = blog;
         console.log(_this.ruleForm);
@@ -99,4 +99,3 @@ export default {
   text-align: center;
 }
 </style>
-
