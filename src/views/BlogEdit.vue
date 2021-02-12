@@ -15,7 +15,7 @@
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+          <el-button type="primary" @click="submitForm('ruleForm')">发布</el-button>
           <el-button @click="resetForm('ruleForm')">重置</el-button>
         </el-form-item>
       </el-form>
@@ -31,6 +31,7 @@ export default {
   data() {
     return {
       ruleForm: {
+        id: '',
         title: '',
         description: '',
         content: ''
@@ -54,7 +55,20 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           const _this = this;
-          _this.$axios.post('/blog/edit')
+          _this.$axios.post('/blogs', this.ruleForm, {
+            headers: {
+              'Authorization': localStorage.getItem('token')
+            }
+          }).then(res => {
+            if (res.status === 200) {
+              this.$alert('操作成功', '提示', {
+                confirmButtonText: '确定',
+                callback: action => {
+                  _this.$router.push('/')
+                }
+              });
+            }
+          })
         } else {
           console.log('error submit!!');
           return false;
@@ -63,6 +77,17 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    }
+  },
+  created() {
+    const blogId = this.$route.params.blogId;
+    if (blogId) {
+      const _this = this;
+      this.$axios.get('/blogs/' + blogId).then(res => {
+        const blog = res.data.data;
+        _this.ruleForm = blog;
+        console.log(_this.ruleForm);
+      });
     }
   },
   components: {Header}
