@@ -4,6 +4,8 @@ import store from './store'
 
 axios.defaults.baseURL = 'http://localhost:8899'
 
+// TODO
+
 // 前置拦截
 axios.interceptors.request.use(config => {
     // 携带 token
@@ -17,7 +19,7 @@ axios.interceptors.response.use(function (response) {
         return response;
     } else {
         // http status 为 200，但业务码不为 1 时，提示错误
-        Element.Message.error(respData.message == null ? 'ERROR' : respData.message, {duration: 3 * 1000})
+        Element.Message.error(respData.message == null ? 'ERROR' : respData.message, {duration: 3 * 1000});
     }
 }, function (error) {
 

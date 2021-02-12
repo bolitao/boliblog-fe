@@ -3,7 +3,7 @@
     <Header/>
     <div class="mblog">
       <h2>{{ blog.title }}</h2>
-      <el-link icon="el-icon-edit">
+      <el-link icon="el-icon-edit" v-if="ownBlog">
         <router-link :to="{name: 'BlogEdit', params: {blogId: blog.id}}">编辑</router-link>
       </el-link>
       <el-divider/>
@@ -31,6 +31,8 @@ export default {
         let MarkdownIt = require('markdown-it');
         let md = new MarkdownIt();
         _this.blog.content = md.render(blog.content);
+
+        _this.ownBlog = _this.$store.getters.getUser.id === blog.userId;
       });
     }
   },
@@ -39,8 +41,10 @@ export default {
       blog: {
         id: '',
         title: 'default',
-        content: 'default_content'
-      }
+        content: 'default_content',
+        userId: '-1'
+      },
+      ownBlog: false
     }
   }
 }
