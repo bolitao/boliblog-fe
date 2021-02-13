@@ -2,7 +2,7 @@ import axios from 'axios'
 import Element from 'element-ui'
 import store from './store'
 
-axios.defaults.baseURL = 'http://localhost:8899'
+axios.defaults.baseURL = 'http://192.168.79.129:8899'
 
 // TODO
 
@@ -25,7 +25,7 @@ axios.interceptors.response.use(function (response) {
 
     // // 判断是否是登陆相关错误
     // if (401 === error.response.status) {
-    //     // 登陆出错则移除登录信息
+    //     // TODO: 登陆出错则移除登录信息
     //     store.commit('REMOVE_INFO')
     // }
 
